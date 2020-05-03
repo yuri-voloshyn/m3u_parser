@@ -1,0 +1,10 @@
+﻿#EXTM3U url-tvg="http://server.name/jtv.zip" cache=500 deinterlace=1 aspect-ratio=4:3 crop=700x550+10+10 tvg-shift=0 
+
+#EXTINF:0 tvg-name="BBC" audio-track="en" tvg-logo="http://mylogos.domain/BBC.png", BBC World
+http://server.name/stream/to/video1
+
+#EXTINF:0 tvg-name="CNN" audio-track="jp" group-title="Fav", CNN International
+http://server.name/stream/to/video2
+
+#EXTINF:0, Arirang
+http://server.name/stream/to/video3
