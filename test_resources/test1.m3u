@@ -8,3 +8,21 @@ http://server.name/stream/to/video2
 
 #EXTINF:0, Arirang
 http://server.name/stream/to/video3
+
+#EXTINF:0, group-title="", Empty1
+http://server.name/stream/to/video4
+
+#EXTINF:0, group-title="Video", Video1
+http://server.name/stream/to/video5
+
+#EXTINF:0, group-title="", Empty2
+http://server.name/stream/to/video6
+
+#EXTINF:0, Empty3
+http://server.name/stream/to/video7
+
+#EXTINF:0, group-title="Video", Video2
+http://server.name/stream/to/video8
+
+#EXTINF:0,
+http://server.name/stream/to/video9

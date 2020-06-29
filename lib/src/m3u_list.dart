@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
@@ -17,9 +18,17 @@ class M3uList {
 
   M3uHeader _header;
   final List<M3uItem> _items = <M3uItem>[];
+  Set<String> _groupTitles;
 
   M3uHeader get header => _header;
-  List<M3uItem> get items => _items;
+  UnmodifiableListView<M3uItem> get items => UnmodifiableListView(_items);
+  UnmodifiableListView<String> get groupTitles {
+    _groupTitles ??= _items
+        .where((a) => a.groupTitle != null)
+        .map((a) => a.groupTitle)
+        .toSet();
+    return UnmodifiableListView(_groupTitles);
+  }
 
   static M3uList load(String source, {M3uLoadOptions options}) {
     final m3uList = M3uList._internal();
@@ -92,9 +101,7 @@ class M3uList {
 
       var groupTitle =
           attributes != null ? attributes[_loadOptions.groupTitleField] : null;
-      if (groupTitle.isNullEmptyOrWhitespace) {
-        groupTitle = _lastGroupTitle;
-      }
+      groupTitle ??= _lastGroupTitle;
       _lastGroupTitle = groupTitle;
 
       _lastItem = M3uItem(
@@ -103,8 +110,10 @@ class M3uList {
           groupTitle: groupTitle,
           attributes: attributes);
     } else {
-      _lastItem =
-          M3uItem(duration: -1, title: 'Unknown', groupTitle: _lastGroupTitle);
+      _lastItem = M3uItem(
+          duration: -1,
+          title: _loadOptions.wrongItemTitle,
+          groupTitle: _lastGroupTitle);
     }
   }
 }
